@@ -69,6 +69,9 @@ function App() {
   });
 
   const [showCustomizationPanel, setShowCustomizationPanel] = useState(false);
+  
+  // About Me state
+  const [showAboutModal, setShowAboutModal] = useState(false);
 
   const fontFamilies = {
     courier: "'Courier New', monospace",
@@ -620,6 +623,13 @@ const hexToRgb = (hex) => {
           </span>
           <div className="header-buttons">
             <button
+              className="about-toggle"
+              onClick={() => setShowAboutModal(true)}
+              title="About Me"
+            >
+              👤
+            </button>
+            <button
               className="customize-toggle"
               onClick={() => setShowCustomizationPanel(!showCustomizationPanel)}
               title="Customize appearance"
@@ -811,6 +821,88 @@ const hexToRgb = (hex) => {
               <button onClick={resetCustomization} className="reset-btn">
                 ↻ Reset to Defaults
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 👤 About Me Modal */}
+      {showAboutModal && (
+        <div className="modal-overlay" onClick={() => setShowAboutModal(false)}>
+          <div className="about-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="about-close" onClick={() => setShowAboutModal(false)}>✕</button>
+            
+            <div className="about-header">
+              <div className="about-avatar">👨‍💻</div>
+              <h2>Avinash Nakul Pradhan</h2>
+              <p className="about-tagline">TYBSC COMPUTER SCIENCE</p>
+            </div>
+
+            <div className="about-content">
+              <div className="about-section">
+                <h3>📞 Contact</h3>
+                <p><span className="about-icon">📱</span> +91 86569 *****</p>
+                <p><span className="about-icon">✉️</span> avinashpradhan****@email.com</p>
+                <p><span className="about-icon">🌐</span> https://github.com/DankAvii</p>
+              </div>
+
+              <div className="about-section">
+                <h3>🚀 About StegnoSafe</h3>
+                <p className="about-description">
+                  StegnoSafe is a cutting-edge steganography tool that allows users to hide secret messages within images and audio files securely.
+                </p>
+              </div>
+
+              <div className="about-section">
+                <h3>✨ Key Features</h3>
+                <ul className="about-features">
+                  <li>🔐 <strong>Dual Mode:</strong> Hide data in both images and audio files</li>
+                  <li>🛡️ <strong>Password Protection:</strong> AES encryption for added security</li>
+                  <li>📊 <strong>Real-time Capacity Analysis:</strong> Know exactly how much data you can hide</li>
+                  <li>🎨 <strong>Customizable UI:</strong> 5 themes with accent color picker</li>
+                  <li>⬇️ <strong>Download Manager:</strong> Easy download of encoded files</li>
+                  <li>🔍 <strong>File Details:</strong> Resolution, duration, size, and type information</li>
+                </ul>
+              </div>
+
+              <div className="about-section">
+                <h3>🌟 What Makes It Unique</h3>
+                <div className="unique-points">
+                  <div className="unique-point">
+                    <span className="unique-icon">🎯</span>
+                    <div>
+                      <h4>LSB + AES Encryption</h4>
+                      <p>Combines least significant bit steganography with military-grade AES encryption</p>
+                    </div>
+                  </div>
+                  <div className="unique-point">
+                    <span className="unique-icon">🔄</span>
+                    <div>
+                      <h4>Auto-Conversion</h4>
+                      <p>Automatically converts unsupported formats to PNG/WAV for compatibility</p>
+                    </div>
+                  </div>
+                  <div className="unique-point">
+                    <span className="unique-icon">📈</span>
+                    <div>
+                      <h4>Capacity Meter</h4>
+                      <p>Visual progress bar showing exactly how much data you can hide</p>
+                    </div>
+                  </div>
+                  <div className="unique-point">
+                    <span className="unique-icon">🎨</span>
+                    <div>
+                      <h4>Cyberpunk Aesthetic</h4>
+                      <p>Glitch effects, particle animations, and customizable themes</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="about-footer">
+                <p>Made with ❤️ for the cybersecurity community</p>
+                <p className="version">Version 0.6.6</p>
+              </div>
             </div>
           </div>
         </div>
