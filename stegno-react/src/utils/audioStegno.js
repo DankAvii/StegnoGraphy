@@ -3,8 +3,31 @@
 // Stereo + Mono + Robust Decode
 // =============================
 
+import CryptoJS from "crypto-js";
+
 const MAGIC = "STEG";
 const OFFSET = 100;
+
+// =============================
+// 🔐 Encrypt / Decrypt
+// =============================
+function encryptMessage(message, password) {
+  if (!password) return message; // optional
+  return CryptoJS.AES.encrypt(message, password).toString();
+}
+
+function decryptMessage(cipherText, password) {
+  if (!password) return cipherText;
+
+  try {
+    const bytes = CryptoJS.AES.decrypt(cipherText, password);
+    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+
+    return decrypted || null; // null = wrong password
+  } catch {
+    return null;
+  }
+}
 
 // --- Helpers ---
 function textToBinary(text) {
@@ -95,7 +118,7 @@ function downloadWAV(wavBuffer) {
 // =============================
 // 🎵 ENCODE AUDIO
 // =============================
-export async function encodeAudio(audioFile, message) {
+export async function encodeAudio(audioFile, message, password) {
 
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   const arrayBuffer = await audioFile.arrayBuffer();
@@ -118,8 +141,11 @@ export async function encodeAudio(audioFile, message) {
     channels.push(int16Samples);
   }
 
+  // 🔐 Optional encryption
+  const processedMessage = encryptMessage(message, password);
+
   const magicBinary = textToBinary(MAGIC);
-  const messageBinary = textToBinary(message);
+  const messageBinary = textToBinary(processedMessage);
   const lengthBinary = numberToBinary(messageBinary.length);
 
   const fullBinary = magicBinary + lengthBinary + messageBinary;
@@ -147,7 +173,7 @@ export async function encodeAudio(audioFile, message) {
 // =============================
 // 🎵 DECODE AUDIO (FIXED)
 // =============================
-export async function decodeAudio(audioFile, setDecoded) {
+export async function decodeAudio(audioFile, password, setDecoded) {
 
   const buffer = await audioFile.arrayBuffer();
   const view = new DataView(buffer);
@@ -242,8 +268,16 @@ export async function decodeAudio(audioFile, setDecoded) {
     }
   }
 
-  const decodedMessage = binaryToText(messageBits);
+  let decodedMessage = binaryToText(messageBits);
   console.log("Decoded:", decodedMessage);
 
-  setDecoded(decodedMessage);
+  // 🔐 Optional decryption
+  const finalMessage = decryptMessage(decodedMessage, password);
+
+  if (password && !finalMessage) {
+    alert("❌ Wrong password!");
+    return;
+  }
+
+  setDecoded(finalMessage);
 }

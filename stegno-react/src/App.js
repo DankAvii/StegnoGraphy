@@ -127,7 +127,7 @@ function App() {
       if (mode === "image") {
         if (!image) return alert("Select a PNG image!");
 
-        if (algorithm === "lsb") encodeLSB(image, message);
+        if (algorithm === "lsb") encodeLSB(image, message, password);
         if (algorithm === "lsb-encrypted")
           encodeLSB(image, message, password);
 
@@ -135,7 +135,7 @@ function App() {
       } else {
         if (!audio) return alert("Select a WAV audio!");
 
-        encodeAudio(audio, message);
+        encodeAudio(audio, message, password);
         showToast("✅ Audio encoded successfully");
       }
     } catch {
@@ -161,7 +161,7 @@ function App() {
       } else {
         if (!audio) throw new Error();
 
-        decodeAudio(audio, (msg) => {
+        decodeAudio(audio, password, (msg) => {
           setDecodedMessage(msg);
           setIsDecoding(false);
         });
@@ -223,129 +223,161 @@ function App() {
     <div className={`App ${theme}`}>
 
       <header className="header">
-        <span className="glitch" data-text="🕵️ StegnoSafe 🔐">
-          🕵️ StegnoSafe 🔐
-        </span>
-      </header>
-
-      <div className="content">
-        <div className="panel">
-
-          {/* 🌗 Theme */}
+        <div className="header-content">
+          <span className="glitch" data-text="🕵️ StegnoSafe 🔐">
+            🕵️ StegnoSafe 🔐
+          </span>
           <button
             className="theme-toggle"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             🌗 {theme === "dark" ? "Light" : "Dark"} Mode
           </button>
+        </div>
+      </header>
 
-          {/* 🎯 Mode */}
-          <div className="mode-switch">
-            <button
-              className={mode === "image" ? "active" : ""}
-              onClick={() => {
-                setMode("image");
-                setAudio(null);
-              }}
-            >
-              🖼 Image
-            </button>
+      <div className="main-container">
+        {/* Sidebar */}
+        <aside className="sidebar">
+          <div className="sidebar-section">
+            <h3>Mode</h3>
+            <div className="mode-switch">
+              <button
+                className={mode === "image" ? "active" : ""}
+                onClick={() => {
+                  setMode("image");
+                  setAudio(null);
+                }}
+              >
+                🖼 Image
+              </button>
 
-            <button
-              className={mode === "audio" ? "active" : ""}
-              onClick={() => {
-                setMode("audio");
-                setImage(null);
-              }}
-            >
-              🎵 Audio
-            </button>
-          </div>
-
-          {/* 🧠 Algorithm */}
-          <select
-            className="algo-select"
-            value={algorithm}
-            onChange={(e) => setAlgorithm(e.target.value)}
-          >
-            {mode === "image" ? (
-              <>
-                <option value="lsb">🖼 LSB (Basic)</option>
-                <option value="lsb-encrypted">🔐 LSB + AES</option>
-              </>
-            ) : (
-              <option value="lsb">🎵 LSB (Basic)</option>
-            )}
-          </select>
-
-          {/* ⬇ Drop */}
-          <div
-            className="drop-zone"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-          >
-            ⬇ Drag & Drop {mode === "image" ? "Image" : "Audio"} Here ⬇
-          </div>
-
-          <input
-            type="file"
-            accept={mode === "image" ? "image/*" : "audio/*"}
-            onChange={handleFileChange}
-          />
-
-          <div className="capacity">📦 Capacity: ~{capacity} KB</div>
-
-          {(image || audio) && (
-            <div className="badge">
-              {mode === "image" ? `🖼 ${image?.type}` : `🎵 ${audio?.type}`}
+              <button
+                className={mode === "audio" ? "active" : ""}
+                onClick={() => {
+                  setMode("audio");
+                  setImage(null);
+                }}
+              >
+                🎵 Audio
+              </button>
             </div>
-          )}
+          </div>
 
-          {mode === "image" && image && (
-            <img src={URL.createObjectURL(image)} alt="preview" width="180" />
-          )}
+          <div className="sidebar-section">
+            <h3>Algorithm</h3>
+            <select
+              className="algo-select"
+              value={algorithm}
+              onChange={(e) => setAlgorithm(e.target.value)}
+            >
+              {mode === "image" ? (
+                <>
+                  <option value="lsb">🖼 LSB (Basic)</option>
+                  <option value="lsb-encrypted">🔐 LSB + AES</option>
+                </>
+              ) : (
+                <option value="lsb">🎵 LSB (Basic)</option>
+              )}
+            </select>
+          </div>
 
-          {mode === "audio" && audio && (
-            <audio controls src={URL.createObjectURL(audio)} />
-          )}
+          <div className="sidebar-section">
+            <h3>Security</h3>
+            <input
+              type="password"
+              placeholder="Enter password (optional)..."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {password && <div className="strength">🔐 Strength: {getStrength()}</div>}
+          </div>
+        </aside>
 
-          <textarea
-            placeholder="Enter secret message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
+        {/* Content Area */}
+        <div className="content">
+          <div className="content-grid">
+            {/* Upload Section */}
+            <section className="panel upload-section">
+              <h2>📂 Upload {mode === "image" ? "Image" : "Audio"}</h2>
+              
+              <div
+                className="drop-zone"
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+              >
+                ⬇ Drag & Drop Here ⬇
+              </div>
 
-          {mode === "image" && algorithm === "lsb-encrypted" && (
-            <>
               <input
-                type="password"
-                placeholder="Enter password..."
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="file"
+                accept={mode === "image" ? "image/*" : "audio/*"}
+                onChange={handleFileChange}
               />
-              <div className="strength">🔐 Strength: {getStrength()}</div>
-            </>
-          )}
 
-          <div className="buttons">
-            <button onClick={handleEncode}>🔐 Encode</button>
-            <button onClick={handleDecode}>🔓 Decode</button>
+              {(image || audio) && (
+                <>
+                  <div className="badge">
+                    {mode === "image" ? `🖼 ${image?.type}` : `🎵 ${audio?.type}`}
+                  </div>
+                  <div className="capacity">📦 Capacity: ~{capacity} KB</div>
+                </>
+              )}
+
+              {mode === "image" && image && (
+                <div className="preview-container">
+                  <img src={URL.createObjectURL(image)} alt="preview" />
+                </div>
+              )}
+
+              {mode === "audio" && audio && (
+                <div className="audio-container">
+                  <audio controls src={URL.createObjectURL(audio)} />
+                </div>
+              )}
+            </section>
+
+            {/* Message & Controls Section */}
+            <section className="panel message-section">
+              <h2>💬 Message</h2>
+              
+              <textarea
+                placeholder="Enter your secret message here..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="message-textarea"
+              />
+
+              <div className="action-buttons">
+                <button onClick={handleEncode} className="encode-btn">🔐 Encode</button>
+                <button onClick={handleDecode} className="decode-btn">🔓 Decode</button>
+              </div>
+
+              <button onClick={() => setShowShareModal(true)} className="share-btn">
+                🔗 Share
+              </button>
+            </section>
           </div>
 
-          <button onClick={() => setShowShareModal(true)}>
-            🔗 Share
-          </button>
+          {/* Results Section */}
+          <section className="panel results-section">
+            <h2>📄 Results</h2>
+            
+            {isDecoding && (
+              <div className="terminal">
+                <p>Decrypting payload...</p>
+                <p>Extracting bits...</p>
+                <p>Reconstructing message...</p>
+              </div>
+            )}
 
-          {isDecoding && (
-            <div className="terminal">
-              <p>Decrypting payload...</p>
-              <p>Extracting bits...</p>
-              <p>Reconstructing message...</p>
-            </div>
-          )}
-
-          <textarea value={decodedMessage} readOnly />
-
+            <textarea 
+              value={decodedMessage} 
+              readOnly
+              placeholder="Decoded message will appear here..."
+              className="results-textarea"
+            />
+          </section>
         </div>
       </div>
 

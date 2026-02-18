@@ -38,7 +38,7 @@ body::before {
 /* ========================= */
 
 .App {
-  min-height: 100vh;   /* ✅ IMPORTANT for scroll */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   transition: background 0.4s, color 0.4s;
@@ -66,16 +66,216 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 26px;
-  font-weight: bold;
   background: rgba(0, 0, 0, 0.75);
   border-bottom: 1px solid #00ffcc33;
   text-shadow: 0 0 10px #00ffe0;
   box-shadow: 0 0 20px #00ffcc22;
-  position: sticky;   /* ✅ stays at top */
+  position: sticky;
   top: 0;
   z-index: 10;
-  overflow: hidden;
+  padding: 0 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header .glitch {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.theme-toggle {
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+
+/* ========================= */
+/* 📦 MAIN CONTAINER */
+/* ========================= */
+
+.main-container {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+
+/* ========================= */
+/* 📌 SIDEBAR */
+/* ========================= */
+
+.sidebar {
+  width: 260px;
+  background: rgba(0, 0, 0, 0.4);
+  border-right: 1px solid #00ffcc33;
+  padding: 30px 20px;
+  overflow-y: auto;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+}
+
+.sidebar-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #00ffcc22;
+}
+
+.sidebar-section:last-child {
+  border-bottom: none;
+}
+
+.sidebar-section h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 12px 0;
+  color: #00ffe0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar .mode-switch {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar .mode-switch button {
+  width: 100%;
+  font-size: 13px;
+  padding: 10px;
+  margin: 0;
+}
+
+.sidebar .algo-select {
+  width: 100%;
+  font-size: 13px;
+}
+
+.sidebar input[type="password"] {
+  width: 100%;
+  margin: 0 0 10px 0;
+}
+
+.sidebar .strength {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+
+/* ========================= */
+/* 📄 CONTENT AREA */
+/* ========================= */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-section h2,
+.message-section h2,
+.results-section h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #00ffe0;
+  border-bottom: 2px solid #00ffcc33;
+  padding-bottom: 10px;
+}
+
+.message-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.results-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-container {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.preview-container img {
+  max-width: 100%;
+  height: auto;
+  max-height: 250px;
+  border-radius: 12px;
+  border: 1px solid #00ffcc33;
+  box-shadow: 0 0 15px #00ffcc22;
+}
+
+.audio-container {
+  margin: 15px 0;
+}
+
+.audio-container audio {
+  width: 100%;
+  margin: 0;
+}
+
+.message-textarea {
+  flex: 1;
+  min-height: 200px;
+  margin: 0 0 15px 0;
+  resize: vertical;
+}
+
+.results-textarea {
+  flex: 1;
+  min-height: 200px;
+  margin: 0;
+  resize: vertical;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.action-buttons button {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.share-btn {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin: 0;
 }
 
 /* ✨ GLITCH EFFECT */
@@ -121,16 +321,7 @@ body::before {
 /* 📦 CONTENT */
 /* ========================= */
 
-.content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;  /* ✅ prevents cut-off */
-  padding: 30px 0;
-
-  /* ✅ SCROLL SAFETY */
-  width: 100%;
-}
+/* Moved to main-container section above */
 
 
 /* ========================= */
@@ -138,17 +329,15 @@ body::before {
 /* ========================= */
 
 .panel {
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.45);
   border: 1px solid #00ffcc33;
-  border-radius: 20px;
-  padding: 35px 45px;
-  width: 420px;
+  border-radius: 14px;
+  padding: 20px;
   backdrop-filter: blur(14px);
   box-shadow: 0 0 30px #00ffcc22;
-  text-align: center;
+  text-align: left;
   animation: fadeIn 0.4s ease-in;
   transition: 0.3s;
-  margin-bottom: 40px; /* ✅ space for scroll */
 }
 
 
@@ -166,6 +355,7 @@ body::before {
 .mode-switch button {
   width: 140px;
   font-size: 13px;
+  flex: 1;
 }
 
 .mode-switch button.active {
@@ -214,6 +404,58 @@ textarea {
   color: inherit;
   font-family: inherit;
   box-shadow: 0 0 10px #00ffcc22;
+  box-sizing: border-box;
+}
+
+/* Box sizing for all elements */
+* {
+  box-sizing: border-box;
+}
+
+
+/* ========================= */
+/* 🔐 PASSWORD STRENGTH */
+/* ========================= */
+
+.strength {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ffd700;
+  text-shadow: 0 0 6px #ffd700;
+}
+
+
+/* ========================= */
+/* 📦 CAPACITY */
+/* ========================= */
+
+.capacity {
+  margin: 10px 0;
+  font-size: 13px;
+  color: #00ffe0;
+  text-shadow: 0 0 6px #00ffe0;
+}
+
+
+/* ========================= */
+/* 🎨 THEME TOGGLE */
+/* ========================= */
+
+.theme-toggle {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+
+/* ========================= */
+/* 🧠 ALGORITHM SELECT */
+/* ========================= */
+
+.algo-select {
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 
@@ -285,6 +527,42 @@ button:active {
   transform: scale(0.98);
 }
 
+/* Encode Button */
+.encode-btn {
+  background: linear-gradient(145deg, #1a3a2e, #004d33);
+  border: 1px solid #00ffcc88;
+}
+
+.encode-btn:hover {
+  box-shadow:
+    0 0 20px #00ff8844,
+    inset 0 0 10px #00ff8844;
+}
+
+/* Decode Button */
+.decode-btn {
+  background: linear-gradient(145deg, #2a1a3a, #4d0033);
+  border: 1px solid #ff00ff88;
+}
+
+.decode-btn:hover {
+  box-shadow:
+    0 0 20px #ff00ff66,
+    inset 0 0 10px #ff00ff66;
+}
+
+/* Share Button */
+.share-btn {
+  background: linear-gradient(145deg, #3a2a1a, #4d3300);
+  border: 1px solid #ffaa0088;
+}
+
+.share-btn:hover {
+  box-shadow:
+    0 0 20px #ffaa0066,
+    inset 0 0 10px #ffaa0066;
+}
+
 /* Light mode buttons */
 .App.light button {
   background: linear-gradient(145deg, #0f172a, #020617);
@@ -328,6 +606,7 @@ button:active {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(6px);
+  z-index: 100;
 }
 
 .modal {
@@ -338,6 +617,43 @@ button:active {
   width: 320px;
   text-align: center;
   box-shadow: 0 0 25px #00ffcc44;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #00ffe0;
+}
+
+.modal p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  font-size: 14px;
+}
+
+.share-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.share-buttons button {
+  width: 100%;
+  font-size: 14px;
 }
 
 
@@ -371,4 +687,260 @@ button:active {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ========================= */
+/* 📱 MOBILE RESPONSIVE */
+/* ========================= */
+
+/* Disable hover on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    transform: none;
+    background: linear-gradient(145deg, #001f1a, #003d33) !important;
+    box-shadow: 0 0 10px #00ffcc44, inset 0 0 6px #00ffcc22 !important;
+  }
+
+  .drop-zone:hover {
+    background: transparent;
+    box-shadow: 0 0 15px #00ffcc33;
+  }
+}
+
+/* MOBILE: Width ≤ 640px */
+@media (max-width: 640px) {
+  /* Header */
+  .header {
+    height: 56px;
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
+  .header .glitch {
+    font-size: 18px;
+  }
+
+  .theme-toggle {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Main container - stack layout */
+  .main-container {
+    flex-direction: column;
+  }
+
+  /* Sidebar - becomes top control panel */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-right: none;
+    border-bottom: 1px solid #00ffcc33;
+    padding: 15px;
+    sticky: initial;
+  }
+
+  .sidebar-section {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+
+  .sidebar-section h3 {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .sidebar .mode-switch {
+    gap: 6px;
+  }
+
+  .sidebar .mode-switch button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .sidebar input[type="password"] {
+    font-size: 13px;
+  }
+
+  /* Content padding */
+  .content {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  /* Content grid - stack vertically */
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Panels */
+  .panel {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  .upload-section h2,
+  .message-section h2,
+  .results-section h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .message-textarea,
+  .results-textarea {
+    min-height: 120px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+  }
+
+  .action-buttons button {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .share-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .preview-container img {
+    max-height: 150px;
+  }
+
+  /* Drop zone */
+  .drop-zone {
+    margin: 12px 0;
+    padding: 14px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
+
+  /* Inputs */
+  input[type="file"],
+  input[type="password"],
+  select,
+  textarea {
+    padding: 8px;
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  /* Modal */
+  .modal {
+    width: 85%;
+    max-width: 280px;
+    padding: 18px 15px;
+    border-radius: 14px;
+  }
+
+  .modal-buttons {
+    gap: 8px;
+  }
+
+  .modal-buttons button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .share-buttons {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .share-buttons button {
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+
+  /* Toast */
+  .toast {
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    font-size: 13px;
+  }
+
+  /* Badge */
+  .badge {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  /* Terminal */
+  .terminal {
+    font-size: 11px;
+    padding: 10px;
+    margin-top: 8px;
+  }
+}
+
+/* TABLET: Width 641px - 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-right: none;
+    border-bottom: 1px solid #00ffcc33;
+    padding: 20px;
+    sticky: initial;
+    padding: 15px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+}
+
+/* DESKTOP: Width > 1024px */
+@media (min-width: 1025px) {
+  .sidebar {
+    width: 260px;
+  }
+
+  .main-container {
+    flex-direction: row;
+  }
+
+  .content {
+    padding: 30px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  /* Hover effects for desktop only */
+  button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #003d33, #006655);
+    box-shadow:
+      0 0 18px #00ffe0aa,
+      inset 0 0 8px #00ffcc44;
+  }
 }
