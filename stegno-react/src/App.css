@@ -944,3 +944,1075 @@ button:active {
       inset 0 0 8px #00ffcc44;
   }
 }
+
+/* ========================= */
+/* 🔐 PASSWORD INPUT WITH TOGGLE */
+/* ========================= */
+
+.password-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.password-input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 40px !important;
+  margin: 0;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  transform: scale(1.1);
+  background: transparent;
+  box-shadow: none;
+}
+
+.password-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.generate-password-btn {
+  width: 40px;
+  padding: 8px;
+  margin: 0;
+  font-size: 16px;
+  background: linear-gradient(145deg, #1a3a2e, #004d33);
+  border: 1px solid #00ffcc88;
+}
+
+.generate-password-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px #00ffe0aa;
+}
+
+.password-strength-container {
+  margin-top: 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+.strength-meter {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  border: 1px solid #00ffcc33;
+}
+
+.strength-meter-fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 4px;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.strength-text {
+  font-size: 12px;
+  margin-bottom: 12px;
+  text-align: right;
+  transition: color 0.3s ease;
+}
+
+/* Password Composition Diagram */
+.password-composition {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid #00ffcc22;
+}
+
+.composition-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.composition-label {
+  width: 70px;
+  color: #00ffe0;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.composition-bar-container {
+  flex: 1;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #00ffcc22;
+}
+
+.composition-bar {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.composition-value {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Light theme adjustments */
+.App.light .password-composition {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.App.light .composition-label {
+  color: #0f172a;
+}
+
+.App.light .composition-bar-container {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.App.light .composition-value {
+  color: #0f172a;
+}
+
+.App.light .password-toggle-btn {
+  color: #0f172a;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .password-container {
+    gap: 6px;
+  }
+  
+  .generate-password-btn {
+    width: 36px;
+    padding: 6px;
+    font-size: 14px;
+  }
+  
+  .composition-label {
+    width: 60px;
+    font-size: 10px;
+  }
+  
+  .composition-bar-container {
+    height: 14px;
+  }
+  
+  .composition-value {
+    font-size: 9px;
+    right: 6px;
+  }
+  
+  .password-toggle-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+}
+/* ========================= */
+/* 📋 FILE DETAILS PANEL */
+/* ========================= */
+
+.file-details-panel {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 1px solid #00ffcc33;
+  animation: slideIn 0.3s ease;
+}
+
+.file-details-panel h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #00ffe0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.file-details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px dashed #00ffcc22;
+  font-size: 13px;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: #7fffe6;
+  font-weight: 300;
+}
+
+.detail-value {
+  color: #00ffcc;
+  font-weight: 600;
+  text-shadow: 0 0 8px #00ffcc66;
+}
+
+/* ========================= */
+/* 📊 CAPACITY USAGE */
+/* ========================= */
+
+.capacity-usage-panel {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 1px solid #00ffcc33;
+  animation: slideIn 0.3s ease;
+}
+
+.capacity-usage-panel h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #00ffe0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.capacity-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.capacity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 2px 0;
+}
+
+.capacity-item span:first-child {
+  color: #7fffe6;
+}
+
+.capacity-item span:last-child {
+  color: #00ffcc;
+  font-weight: 600;
+}
+
+.capacity-bar-container {
+  margin-top: 5px;
+}
+
+.capacity-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.capacity-bar-labels span:first-child {
+  color: #7fffe6;
+}
+
+.capacity-percentage {
+  color: #00ffcc;
+  font-weight: 600;
+}
+
+.capacity-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  border: 1px solid #00ffcc33;
+}
+
+.capacity-bar-fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 4px;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.capacity-bar-text {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #00ffcc;
+  text-shadow: 0 0 8px #00ffcc66;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+/* Light theme adjustments */
+.App.light .file-details-panel,
+.App.light .capacity-usage-panel {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.App.light .detail-label,
+.App.light .capacity-item span:first-child,
+.App.light .capacity-bar-labels span:first-child {
+  color: #0f172a;
+}
+
+.App.light .detail-value,
+.App.light .capacity-item span:last-child,
+.App.light .capacity-percentage,
+.App.light .capacity-bar-text {
+  color: #020617;
+  text-shadow: 0 0 8px #22c55e66;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .file-details-panel,
+  .capacity-usage-panel {
+    padding: 10px;
+    margin-top: 12px;
+  }
+  
+  .file-details-panel h4,
+  .capacity-usage-panel h4 {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  .detail-item {
+    font-size: 12px;
+  }
+  
+  .capacity-item {
+    font-size: 12px;
+  }
+  
+  .capacity-bar-text {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+}
+/* ========================= */
+/* ⬇ DOWNLOAD MANAGER */
+/* ========================= */
+
+.download-manager {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid #00ffcc33;
+  animation: slideDown 0.3s ease;
+}
+
+.App.light .download-manager {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.download-manager h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #00ffe0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.App.light .download-manager h4 {
+  color: #2563eb;
+}
+
+.download-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.download-buttons button {
+  flex: 1;
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.download-btn {
+  background: linear-gradient(145deg, #1a4d2e, #2d6a4f) !important;
+  border: 1px solid #00ffcc88 !important;
+  color: white !important;
+}
+
+.download-btn:hover {
+  background: linear-gradient(145deg, #2d6a4f, #409c7c) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 255, 200, 0.3) !important;
+}
+
+.copy-btn {
+  background: linear-gradient(145deg, #4a2d6a, #6a4f8c) !important;
+  border: 1px solid #cc88ff !important;
+  color: white !important;
+}
+
+.copy-btn:hover {
+  background: linear-gradient(145deg, #6a4f8c, #8c6fae) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(200, 100, 255, 0.3) !important;
+}
+
+.download-info {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.App.light .download-info {
+  background: #f1f5f9;
+}
+
+.info-badge {
+  padding: 4px 8px;
+  background: rgba(0, 255, 204, 0.1);
+  border-radius: 20px;
+  color: #00ffcc;
+  border: 1px solid #00ffcc33;
+  font-family: 'Courier New', monospace;
+}
+
+.App.light .info-badge {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #e2e8f0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Light mode specific button styles */
+.App.light .download-btn {
+  background: #059669 !important;
+  border: none !important;
+  color: white !important;
+}
+
+.App.light .download-btn:hover {
+  background: #047857 !important;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3) !important;
+}
+
+.App.light .copy-btn {
+  background: #7c3aed !important;
+  border: none !important;
+  color: white !important;
+}
+
+.App.light .copy-btn:hover {
+  background: #6d28d9 !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .download-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .download-buttons button {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+  }
+  
+  .download-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .info-badge {
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+/* ========================= */
+/* 🎨 CUSTOMIZATION PANEL */
+/* ========================= */
+
+.customization-overlay {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.3s ease;
+}
+
+.customization-panel {
+  width: 320px;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid var(--accent-color, #00ffcc);
+  border-radius: var(--border-radius, 14px);
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px var(--accent-color, #00ffcc33);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.App.light .customization-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--accent-color, #2563eb);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.customization-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--accent-color, #00ffcc33);
+}
+
+.customization-header h3 {
+  margin: 0;
+  color: var(--accent-color, #00ffe0);
+  font-size: 18px;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent-color, #00ffcc);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.customization-section {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.App.light .customization-section {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.customization-section h4 {
+  margin: 0 0 12px 0;
+  color: var(--accent-color, #00ffe0);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-option.active {
+  border-color: var(--accent-color, #00ffcc);
+  background: rgba(0, 255, 204, 0.1);
+}
+
+.theme-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.theme-preview.dark {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  border: 1px solid #00ffcc;
+}
+
+.theme-preview.light {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border: 1px solid #2563eb;
+}
+
+.theme-preview.cyberpunk {
+  background: linear-gradient(135deg, #1a0f1a, #2a1a2a);
+  border: 1px solid #ff00ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-preview.cyberpunk::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, #ff00ff33 50%, transparent 70%);
+}
+
+.theme-preview.matrix {
+  background: linear-gradient(135deg, #0a1a0a, #1a2a1a);
+  border: 1px solid #00ff00;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-preview.matrix::after {
+  content: '1010';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: #00ff00;
+  font-size: 8px;
+  opacity: 0.5;
+}
+
+.theme-preview.ocean {
+  background: linear-gradient(135deg, #0a1a2a, #1a2a3a);
+  border: 1px solid #00bfff;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-preview.ocean::after {
+  content: '🌊';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.theme-option span {
+  font-size: 11px;
+  color: var(--accent-color, #00ffcc);
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.color-option {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-option.active {
+  border-color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px currentColor;
+}
+
+.color-picker {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-color, #00ffcc);
+  cursor: pointer;
+  background: transparent;
+}
+
+.customization-select {
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--accent-color, #00ffcc);
+  border-radius: 8px;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.size-options,
+.density-options,
+.radius-options {
+  display: flex;
+  gap: 8px;
+}
+
+.size-option,
+.density-option,
+.radius-option {
+  flex: 1;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--accent-color, #00ffcc);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.size-option.active,
+.density-option.active,
+.radius-option.active {
+  border-color: var(--accent-color, #00ffcc);
+  background: rgba(0, 255, 204, 0.1);
+}
+
+.toggle-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--accent-color, #00ffcc);
+  font-size: 13px;
+}
+
+.toggle-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent-color, #00ffcc);
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: rgba(255, 68, 68, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ========================= */
+/* 🎨 CUSTOMIZATION VARIABLES */
+/* ========================= */
+
+:root {
+  --accent-color: #2563eb;
+  --font-family: 'Courier New', monospace;
+  --border-radius: 14px;
+  --panel-padding: 20px;
+  --base-font-size: 14px;
+}
+
+/* Apply font family */
+* {
+  font-family: var(--font-family);
+}
+
+/* Font Size Variations */
+.customization-small,
+.customization-small button,
+.customization-small input,
+.customization-small select,
+.customization-small textarea {
+  font-size: 12px;
+}
+
+.customization-medium,
+.customization-medium button,
+.customization-medium input,
+.customization-medium select,
+.customization-medium textarea {
+  font-size: 14px;
+}
+
+.customization-large,
+.customization-large button,
+.customization-large input,
+.customization-large select,
+.customization-large textarea {
+  font-size: 16px;
+}
+
+/* Density Variations */
+.density-compact .panel {
+  padding: 12px;
+}
+
+.density-compact .sidebar-section {
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+}
+
+.density-spacious .panel {
+  padding: 28px;
+}
+
+.density-spacious .sidebar-section {
+  margin-bottom: 35px;
+  padding-bottom: 28px;
+}
+
+/* ========================= */
+/* 🎨 THEME VARIATIONS */
+/* ========================= */
+
+/* Cyberpunk Theme - Dark Mode */
+.App.dark.cyberpunk-theme {
+  --accent-color: #ff00ff;
+}
+
+.App.dark.cyberpunk-theme .panel {
+  border-color: #ff00ff;
+  box-shadow: 0 0 30px #ff00ff33;
+}
+
+.App.dark.cyberpunk-theme .header {
+  border-bottom-color: #ff00ff33;
+}
+
+.App.dark.cyberpunk-theme button {
+  border-color: #ff00ff66;
+}
+
+.App.dark.cyberpunk-theme .mode-switch button.active {
+  background: linear-gradient(145deg, #ff00ff, #ff66ff);
+  border-color: #ff00ff;
+}
+
+/* Matrix Theme - Dark Mode */
+.App.dark.matrix-theme {
+  --accent-color: #00ff00;
+}
+
+.App.dark.matrix-theme .panel {
+  border-color: #00ff00;
+  box-shadow: 0 0 30px #00ff0033;
+}
+
+.App.dark.matrix-theme .header {
+  border-bottom-color: #00ff0033;
+}
+
+.App.dark.matrix-theme button {
+  border-color: #00ff0066;
+}
+
+.App.dark.matrix-theme .mode-switch button.active {
+  background: linear-gradient(145deg, #00aa00, #00ff00);
+  border-color: #00ff00;
+}
+
+/* Ocean Theme - Dark Mode */
+.App.dark.ocean-theme {
+  --accent-color: #00bfff;
+}
+
+.App.dark.ocean-theme .panel {
+  border-color: #00bfff;
+  box-shadow: 0 0 30px #00bfff33;
+}
+
+.App.dark.ocean-theme .header {
+  border-bottom-color: #00bfff33;
+}
+
+.App.dark.ocean-theme button {
+  border-color: #00bfff66;
+}
+
+.App.dark.ocean-theme .mode-switch button.active {
+  background: linear-gradient(145deg, #006994, #00bfff);
+  border-color: #00bfff;
+}
+
+/* Light Mode Theme Variations */
+.App.light.cyberpunk-theme {
+  --accent-color: #ff00ff;
+  background: linear-gradient(135deg, #fff0ff, #ffe6ff);
+}
+
+.App.light.cyberpunk-theme .panel {
+  border-color: #ff00ff;
+}
+
+.App.light.matrix-theme {
+  --accent-color: #00cc00;
+  background: linear-gradient(135deg, #f0fff0, #e6ffe6);
+}
+
+.App.light.matrix-theme .panel {
+  border-color: #00cc00;
+}
+
+.App.light.ocean-theme {
+  --accent-color: #0099ff;
+  background: linear-gradient(135deg, #f0f9ff, #e6f3ff);
+}
+
+.App.light.ocean-theme .panel {
+  border-color: #0099ff;
+}
+
+/* ========================= */
+/* 🎨 HEADER BUTTONS */
+/* ========================= */
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.customize-toggle {
+  background: transparent;
+  border: 1px solid var(--accent-color, #00ffcc);
+  color: var(--accent-color, #00ffcc);
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.customize-toggle:hover {
+  background: rgba(0, 255, 204, 0.1);
+  transform: scale(1.05);
+}
+
+/* ========================= */
+/* ✨ ANIMATIONS */
+/* ========================= */
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .customization-overlay {
+    top: 60px;
+    right: 10px;
+    left: 10px;
+  }
+  
+  .customization-panel {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .theme-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .header-buttons {
+    gap: 5px;
+  }
+  
+  .customize-toggle {
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+}
