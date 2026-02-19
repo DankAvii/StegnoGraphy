@@ -73,6 +73,14 @@ function App() {
   // About Me state
   const [showAboutModal, setShowAboutModal] = useState(false);
 
+  // =========================
+  // 🔥 SELF-DESTRUCT FEATURE
+  // =========================
+  const [selfDestructEnabled, setSelfDestructEnabled] = useState(false);
+  const [selfDestructType, setSelfDestructType] = useState('immediate'); // 'immediate' or 'timer'
+  const [selfDestructTimer, setSelfDestructTimer] = useState(10); // seconds
+  const [selfDestructAnimation, setSelfDestructAnimation] = useState(false);
+
   const fontFamilies = {
     courier: "'Courier New', monospace",
     mono: "'Fira Code', 'JetBrains Mono', monospace",
@@ -97,69 +105,69 @@ function App() {
   }, [customization]);
 
   const applyCustomization = () => {
-  // Get the root element
-  const root = document.documentElement;
-  
-  // Apply font family
-  root.style.setProperty('--font-family', fontFamilies[customization.fontFamily]);
-  
-  // Apply accent color - this is the key fix
-  root.style.setProperty('--accent-color', customization.accentColor);
-  
-  // Also set specific color variables for different elements
-  root.style.setProperty('--accent-color-rgb', hexToRgb(customization.accentColor));
-  
-  // Apply border radius
-  const radii = {
-    none: '0px',
-    small: '8px',
-    medium: '14px',
-    large: '20px'
-  };
-  root.style.setProperty('--border-radius', radii[customization.borderRadius]);
-  
-  // Apply density
-  const paddings = {
-    compact: '12px',
-    comfortable: '20px',
-    spacious: '28px'
-  };
-  root.style.setProperty('--panel-padding', paddings[customization.density]);
-  
-  // Apply font size
-  const fontSizes = {
-    small: '12px',
-    medium: '14px',
-    large: '16px'
-  };
-  root.style.setProperty('--base-font-size', fontSizes[customization.fontSize]);
-  
-  // Apply theme - this sets the actual theme class
-  if (customization.themeStyle === 'light') {
-    setTheme('light');
-  } else {
-    setTheme('dark');
-  }
-  
-  // Add theme style class for special themes
-  const appElement = document.querySelector('.App');
-  if (appElement) {
-    // Remove all theme style classes
-    appElement.classList.remove('cyberpunk-theme', 'matrix-theme', 'ocean-theme');
-    // Add current theme style if it's a special theme
-    if (['cyberpunk', 'matrix', 'ocean'].includes(customization.themeStyle)) {
-      appElement.classList.add(`${customization.themeStyle}-theme`);
+    // Get the root element
+    const root = document.documentElement;
+    
+    // Apply font family
+    root.style.setProperty('--font-family', fontFamilies[customization.fontFamily]);
+    
+    // Apply accent color - this is the key fix
+    root.style.setProperty('--accent-color', customization.accentColor);
+    
+    // Also set specific color variables for different elements
+    root.style.setProperty('--accent-color-rgb', hexToRgb(customization.accentColor));
+    
+    // Apply border radius
+    const radii = {
+      none: '0px',
+      small: '8px',
+      medium: '14px',
+      large: '20px'
+    };
+    root.style.setProperty('--border-radius', radii[customization.borderRadius]);
+    
+    // Apply density
+    const paddings = {
+      compact: '12px',
+      comfortable: '20px',
+      spacious: '28px'
+    };
+    root.style.setProperty('--panel-padding', paddings[customization.density]);
+    
+    // Apply font size
+    const fontSizes = {
+      small: '12px',
+      medium: '14px',
+      large: '16px'
+    };
+    root.style.setProperty('--base-font-size', fontSizes[customization.fontSize]);
+    
+    // Apply theme - this sets the actual theme class
+    if (customization.themeStyle === 'light') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
     }
-  }
-};
+    
+    // Add theme style class for special themes
+    const appElement = document.querySelector('.App');
+    if (appElement) {
+      // Remove all theme style classes
+      appElement.classList.remove('cyberpunk-theme', 'matrix-theme', 'ocean-theme');
+      // Add current theme style if it's a special theme
+      if (['cyberpunk', 'matrix', 'ocean'].includes(customization.themeStyle)) {
+        appElement.classList.add(`${customization.themeStyle}-theme`);
+      }
+    }
+  };
 
-// Helper function to convert hex to rgb
-const hexToRgb = (hex) => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? 
-    `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
-    '37, 99, 235';
-};
+  // Helper function to convert hex to rgb
+  const hexToRgb = (hex) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? 
+      `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+      '37, 99, 235';
+  };
 
   const analyzePassword = (pwd) => {
     const metrics = {
@@ -432,6 +440,26 @@ const hexToRgb = (hex) => {
   };
 
   // =========================
+  // 🔥 SELF-DESTRUCT HELPERS
+  // =========================
+  const generateUniqueId = () => {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  };
+
+  const animateSelfDestruct = () => {
+    setSelfDestructAnimation(true);
+    const resultsPanel = document.querySelector('.results-section');
+    if (resultsPanel) {
+      resultsPanel.classList.add('self-destruct-animation');
+      
+      setTimeout(() => {
+        resultsPanel.classList.remove('self-destruct-animation');
+        setSelfDestructAnimation(false);
+      }, 1000);
+    }
+  };
+
+  // =========================
   // 🔐 ENCODE
   // =========================
   const handleEncode = () => {
@@ -444,25 +472,46 @@ const hexToRgb = (hex) => {
     }
 
     try {
+      let finalMessage = message;
+      
+      // If self-destruct is enabled, wrap the message with destruct config
+      if (selfDestructEnabled) {
+        const destructConfig = {
+          type: selfDestructType,
+          timer: selfDestructTimer,
+          created: Date.now(),
+          id: generateUniqueId(),
+          viewed: false
+        };
+        
+        // Wrap message with destruct info
+        finalMessage = JSON.stringify({
+          __selfDestruct: destructConfig,
+          message: message
+        });
+        
+        showToast("💣 Self-destruct enabled for this message");
+      }
+
       if (mode === "image") {
         if (!image) return alert("Select a PNG image!");
 
-        if (algorithm === "lsb") encodeLSB(image, message, password);
+        if (algorithm === "lsb") encodeLSB(image, finalMessage, password);
         if (algorithm === "lsb-encrypted")
-          encodeLSB(image, message, password);
+          encodeLSB(image, finalMessage, password);
 
         setEncodedFile(image);
         setEncodedMessage(message);
         setShowDownloadOptions(true);
-        showToast("✅ Image encoded successfully");
+        showToast(selfDestructEnabled ? "✅ Encoded with self-destruct" : "✅ Image encoded successfully");
       } else {
         if (!audio) return alert("Select a WAV audio!");
 
-        encodeAudio(audio, message, password);
+        encodeAudio(audio, finalMessage, password);
         setEncodedFile(audio);
         setEncodedMessage(message);
         setShowDownloadOptions(true);
-        showToast("✅ Audio encoded successfully");
+        showToast(selfDestructEnabled ? "✅ Encoded with self-destruct" : "✅ Audio encoded successfully");
       }
     } catch {
       alert("❌ Encoding failed");
@@ -481,14 +530,106 @@ const hexToRgb = (hex) => {
         if (!image) throw new Error();
 
         decodeLSB(image, password, (msg) => {
-          setDecodedMessage(msg);
+          // Check if this is a self-destruct message
+          try {
+            const parsed = JSON.parse(msg);
+            
+            if (parsed.__selfDestruct) {
+              // This is a self-destruct message
+              const { __selfDestruct, message: hiddenMessage } = parsed;
+              
+              // Check if already viewed (using localStorage)
+              const viewedKey = `viewed_${__selfDestruct.id}`;
+              const alreadyViewed = localStorage.getItem(viewedKey);
+              
+              if (alreadyViewed) {
+                setDecodedMessage("💥 This message has already self-destructed!");
+                showToast("Message already viewed and destroyed");
+                setIsDecoding(false);
+                return;
+              }
+              
+              // Check timer if needed
+              if (__selfDestruct.type === 'timer') {
+                const elapsed = (Date.now() - __selfDestruct.created) / 1000;
+                if (elapsed > __selfDestruct.timer) {
+                  setDecodedMessage("⏰ This message expired and self-destructed!");
+                  showToast("Message expired");
+                  setIsDecoding(false);
+                  return;
+                }
+              }
+              
+              // First time viewing - show message and mark as viewed
+              localStorage.setItem(viewedKey, 'true');
+              setDecodedMessage(hiddenMessage);
+              
+              // Animate self-destruct
+              animateSelfDestruct();
+              
+              showToast("💣 Message will self-destruct after this viewing");
+            } else {
+              // Regular message
+              setDecodedMessage(msg);
+            }
+          } catch {
+            // Not JSON - regular message
+            setDecodedMessage(msg);
+          }
+          
           setIsDecoding(false);
         });
       } else {
         if (!audio) throw new Error();
 
         decodeAudio(audio, password, (msg) => {
-          setDecodedMessage(msg);
+          // Check if this is a self-destruct message
+          try {
+            const parsed = JSON.parse(msg);
+            
+            if (parsed.__selfDestruct) {
+              // This is a self-destruct message
+              const { __selfDestruct, message: hiddenMessage } = parsed;
+              
+              // Check if already viewed (using localStorage)
+              const viewedKey = `viewed_${__selfDestruct.id}`;
+              const alreadyViewed = localStorage.getItem(viewedKey);
+              
+              if (alreadyViewed) {
+                setDecodedMessage("💥 This message has already self-destructed!");
+                showToast("Message already viewed and destroyed");
+                setIsDecoding(false);
+                return;
+              }
+              
+              // Check timer if needed
+              if (__selfDestruct.type === 'timer') {
+                const elapsed = (Date.now() - __selfDestruct.created) / 1000;
+                if (elapsed > __selfDestruct.timer) {
+                  setDecodedMessage("⏰ This message expired and self-destructed!");
+                  showToast("Message expired");
+                  setIsDecoding(false);
+                  return;
+                }
+              }
+              
+              // First time viewing - show message and mark as viewed
+              localStorage.setItem(viewedKey, 'true');
+              setDecodedMessage(hiddenMessage);
+              
+              // Animate self-destruct
+              animateSelfDestruct();
+              
+              showToast("💣 Message will self-destruct after this viewing");
+            } else {
+              // Regular message
+              setDecodedMessage(msg);
+            }
+          } catch {
+            // Not JSON - regular message
+            setDecodedMessage(msg);
+          }
+          
           setIsDecoding(false);
         });
       }
@@ -615,7 +756,7 @@ const hexToRgb = (hex) => {
   };
 
   return (
-    <div className={`App ${theme}`}>
+    <div className={`App ${theme} ${selfDestructAnimation ? 'self-destruct-active' : ''}`}>
       <header className="header">
         <div className="header-content">
           <span className="glitch" data-text="🕵️ StegnoSafe 🔐" style={{ animation: customization.glitchEffect ? undefined : 'none' }}>
@@ -862,6 +1003,7 @@ const hexToRgb = (hex) => {
                   <li>🎨 <strong>Customizable UI:</strong> 5 themes with accent color picker</li>
                   <li>⬇️ <strong>Download Manager:</strong> Easy download of encoded files</li>
                   <li>🔍 <strong>File Details:</strong> Resolution, duration, size, and type information</li>
+                  <li>💣 <strong>Self-Destruct Messages:</strong> Messages that disappear after viewing</li>
                 </ul>
               </div>
 
@@ -890,6 +1032,13 @@ const hexToRgb = (hex) => {
                     </div>
                   </div>
                   <div className="unique-point">
+                    <span className="unique-icon">💣</span>
+                    <div>
+                      <h4>Self-Destruct Messages</h4>
+                      <p>Messages that automatically delete after being viewed - like Mission Impossible!</p>
+                    </div>
+                  </div>
+                  <div className="unique-point">
                     <span className="unique-icon">🎨</span>
                     <div>
                       <h4>Cyberpunk Aesthetic</h4>
@@ -901,7 +1050,7 @@ const hexToRgb = (hex) => {
 
               <div className="about-footer">
                 <p>Made with ❤️ for the cybersecurity community</p>
-                <p className="version">Version 0.6.6</p>
+                <p className="version">Version 0.7.0</p>
               </div>
             </div>
           </div>
@@ -1214,8 +1363,71 @@ const hexToRgb = (hex) => {
                 className="message-textarea"
               />
 
+              {/* 🔥 Self-Destruct Toggle */}
+              <div className="self-destruct-container">
+                <label className="self-destruct-toggle">
+                  <input
+                    type="checkbox"
+                    checked={selfDestructEnabled}
+                    onChange={(e) => setSelfDestructEnabled(e.target.checked)}
+                  />
+                  <span className="toggle-label">
+                    🔥 Enable Self-Destruct Message
+                  </span>
+                </label>
+                
+                {selfDestructEnabled && (
+                  <div className="self-destruct-options">
+                    <div className="option-row">
+                      <label>
+                        <input
+                          type="radio"
+                          name="destructType"
+                          value="immediate"
+                          checked={selfDestructType === 'immediate'}
+                          onChange={(e) => setSelfDestructType(e.target.value)}
+                        />
+                        <span>💥 Destroy immediately after viewing</span>
+                      </label>
+                    </div>
+                    
+                    <div className="option-row">
+                      <label>
+                        <input
+                          type="radio"
+                          name="destructType"
+                          value="timer"
+                          checked={selfDestructType === 'timer'}
+                          onChange={(e) => setSelfDestructType(e.target.value)}
+                        />
+                        <span>⏰ Destroy after</span>
+                      </label>
+                      
+                      {selfDestructType === 'timer' && (
+                        <div className="timer-input">
+                          <input
+                            type="number"
+                            min="1"
+                            max="300"
+                            value={selfDestructTimer}
+                            onChange={(e) => setSelfDestructTimer(parseInt(e.target.value))}
+                          />
+                          <span>seconds</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="destruct-warning">
+                      ⚠️ Message will be permanently deleted after viewing!
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="action-buttons">
-                <button onClick={handleEncode} className="encode-btn">🔐 Encode</button>
+                <button onClick={handleEncode} className="encode-btn">
+                  {selfDestructEnabled ? '💣 Encode (Self-Destruct)' : '🔐 Encode'}
+                </button>
                 <button onClick={handleDecode} className="decode-btn">🔓 Decode</button>
               </div>
 
