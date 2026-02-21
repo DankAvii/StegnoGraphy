@@ -95,7 +95,7 @@ function App() {
   // =========================
   const [selfDestructEnabled, setSelfDestructEnabled] = useState(false);
   const [selfDestructType, setSelfDestructType] = useState('immediate'); // 'immediate' or 'timer'
-  const [selfDestructTimer, setSelfDestructTimer] = useState(10); // seconds
+  const [selfDestructTimer, setSelfDestructTimer] = useState(30); // seconds
   const [selfDestructAnimation, setSelfDestructAnimation] = useState(false);
 
   const fontFamilies = {
