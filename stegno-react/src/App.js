@@ -199,7 +199,7 @@ function App() {
     let strength = 0;
     
     // Length contribution (up to 40%)
-    if (pwd.length >= 12) strength += 40;
+    if (pwd.length >= 10) strength += 40;
     else if (pwd.length >= 8) strength += 30;
     else if (pwd.length >= 6) strength += 20;
     else if (pwd.length >= 4) strength += 10;
