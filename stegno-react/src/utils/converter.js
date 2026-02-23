@@ -1,6 +1,6 @@
-// =============================
+// ========================
 // 🔄 FILE CONVERTER UTILS
-// =============================
+// ========================
 
 // 🖼 Convert Image → PNG
 export function convertImageToPNG(file) {
