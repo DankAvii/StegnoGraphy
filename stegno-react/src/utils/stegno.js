@@ -174,7 +174,7 @@ export function decodeLSB(imageFile, password, setDecoded) {
       return;
     }
 
-    // 🔄 Fallback → OLD delimiter-only decode
+    //🔄 Fallback → OLD delimiter-only decode
     const endIndex = binaryData.indexOf(DELIMITER);
 
     if (endIndex === -1) {

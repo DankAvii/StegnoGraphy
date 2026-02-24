@@ -44,7 +44,7 @@ export async function convertAudioToWAV(file) {
   });
 }
 
-// 🧱 WAV Builder
+//🧱 WAV Builder
 function buildWAV(samples, sampleRate) {
   const buffer = new ArrayBuffer(44 + samples.length * 2);
   const view = new DataView(buffer);
