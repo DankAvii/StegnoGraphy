@@ -222,7 +222,7 @@ export async function decodeAudio(audioFile, password, setDecoded) {
 
   let pointer = OFFSET * numChannels;
 
-  //✅MAGIC
+  // ✅MAGIC
   let magicBits = "";
   for (let i = 0; i < 32; i++) {
     magicBits += readBit(pointer);
