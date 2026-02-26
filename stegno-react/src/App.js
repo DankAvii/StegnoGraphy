@@ -32,7 +32,7 @@ function App() {
   const [encodedMessage, setEncodedMessage] = useState("");
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
 
-  //File  details state
+  //File details state
   const [fileDetails, setFileDetails] = useState({
     name: "",
     resolution: { width: 0, height: 0 },
