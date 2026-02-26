@@ -237,7 +237,7 @@ export async function decodeAudio(audioFile, password, setDecoded) {
     return;
   }
 
-  // ✅ LENGTH
+  //✅ LENGTH
   let lengthBits = "";
   for (let i = 0; i < 32; i++) {
     lengthBits += readBit(pointer);
