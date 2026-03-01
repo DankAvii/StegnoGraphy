@@ -1513,7 +1513,7 @@ function App() {
         {/* Content Area */}
         <div className="content">
           <div className="content-grid">
-            {/* Upload Section */}
+            {/*  Upload Section */}
             <section className="panel upload-section">
               <h2>📂 Upload {mode === "image" ? "Image" : "Audio"}</h2>
               
