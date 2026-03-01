@@ -1570,7 +1570,7 @@ function App() {
                     </div>
                   </div>
 
-                  {/* Capacity Usage Bar */}
+                  {/* Capacity Usag  Bar */}
                   <div className="capacity-usage-panel">
                     <h4>📊 Capacity Usage</h4>
                     <div className="capacity-details">
