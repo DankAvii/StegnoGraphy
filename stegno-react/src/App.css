@@ -2776,7 +2776,7 @@ button:active {
   border: 1px solid #cc88ff;
 }
 
-/* Light theme adjustments for analysis modal */
+/*  Light theme adjustments for analysis modal */
 .App.light .analysis-modal {
   background: white;
   color: #1e293b;
