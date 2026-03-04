@@ -2751,7 +2751,7 @@ button:active {
   font-weight: bold;
 }
 
-/* Analysis Actions */
+/* Analysis   Actions */
 .analysis-actions {
   display: flex;
   gap: 10px;

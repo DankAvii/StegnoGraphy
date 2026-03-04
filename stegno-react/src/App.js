@@ -1437,7 +1437,7 @@ function App() {
             
             {password && (
               <div className="password-strength-container">
-                {/* Strength Meter Bar */}
+                {/* Strength Meter      Bar */}
                 <div className="strength-meter">
                   <div 
                     className="strength-meter-fill"
