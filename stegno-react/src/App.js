@@ -773,6 +773,7 @@ function App() {
         setEncodedFile(image);
         setEncodedMessage(message);
         setShowDownloadOptions(true);
+        setPassword("");
         showToast(selfDestructEnabled ? "✅ Encoded with self-destruct" : "✅ Image encoded successfully");
       } else {
         if (!audio) return alert("Select a WAV audio!");
@@ -781,6 +782,7 @@ function App() {
         setEncodedFile(audio);
         setEncodedMessage(message);
         setShowDownloadOptions(true);
+        setPassword("");
         showToast(selfDestructEnabled ? "✅ Encoded with self-destruct" : "✅ Audio encoded successfully");
       }
     } catch {
