@@ -1452,7 +1452,7 @@ function App() {
                   🔐 Strength: {passwordMetrics.strengthText} ({Math.round(passwordMetrics.strength)}%)
                 </div>
                 
-                {/* Password Composition Diagram */}
+                {/* Password    Composition Diagram */}
                 <div className="password-composition">
                   <div className="composition-item">
                     <span className="composition-label">Length:</span>
@@ -1496,7 +1496,6 @@ function App() {
                       <span className="composition-value">{passwordMetrics.hasLower ? "✓" : "✗"}</span>
                     </div>
                   </div>
-                  
                   <div className="composition-item">
                     <span className="composition-label">Numbers:</span>
                     <div className="composition-bar-container">
