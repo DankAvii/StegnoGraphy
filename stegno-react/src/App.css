@@ -424,6 +424,27 @@ textarea {
   text-shadow: 0 0 6px #ffd700;
 }
 
+/* ========================= */
+/* ❗ WRONG PASSWORD CUSTOMIZATION */
+/* ========================= */
+
+.wrong-password-settings {
+  margin-top: 12px;
+}
+
+.wrong-password-settings .toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #00ffe0;
+}
+
+.error-message-input {
+  margin-top: 6px;
+  padding: 6px;
+  font-size: 13px;
+}
 
 /* ========================= */
 /* 📦 CAPACITY */

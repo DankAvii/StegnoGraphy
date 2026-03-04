@@ -173,7 +173,7 @@ export async function encodeAudio(audioFile, message, password) {
 // =============================
 // 🎵 DECODE AUDIO (FIXED)
 // =============================
-export async function decodeAudio(audioFile, password, setDecoded) {
+export async function decodeAudio(audioFile, password, setDecoded, onError) {
 
   const buffer = await audioFile.arrayBuffer();
   const view = new DataView(buffer);
@@ -275,7 +275,11 @@ export async function decodeAudio(audioFile, password, setDecoded) {
   const finalMessage = decryptMessage(decodedMessage, password);
 
   if (password && !finalMessage) {
-    alert("❌ Wrong password!");
+    if (typeof onError === 'function') {
+      onError('wrong-password');
+    } else {
+      alert("❌ Wrong password!");
+    }
     return;
   }
 

@@ -115,7 +115,7 @@ export function encodeLSB(imageFile, message, password) {
 // =============================
 // 🔓 DECODE IMAGE (SMART)
 // =============================
-export function decodeLSB(imageFile, password, setDecoded) {
+export function decodeLSB(imageFile, password, setDecoded, onError) {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
 
@@ -166,7 +166,11 @@ export function decodeLSB(imageFile, password, setDecoded) {
       const decrypted = decryptMessage(extractedMessage, password);
 
       if (password && !decrypted) {
-        alert("❌ Wrong password!");
+        if (typeof onError === 'function') {
+          onError('wrong-password');
+        } else {
+          alert("❌ Wrong password!");
+        }
         return;
       }
 
@@ -186,6 +190,15 @@ export function decodeLSB(imageFile, password, setDecoded) {
     const extractedMessage = binaryToMessage(messageBinary);
 
     const decrypted = decryptMessage(extractedMessage, password);
+
+    if (password && !decrypted) {
+      if (typeof onError === 'function') {
+        onError('wrong-password');
+      } else {
+        alert("❌ Wrong password!");
+      }
+      return;
+    }
 
     setDecoded(decrypted || extractedMessage);
   };

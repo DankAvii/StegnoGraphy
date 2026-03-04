@@ -72,6 +72,10 @@ function App() {
     color: "#ff0000"
   });
 
+  // ✅ Wrong-password message customization
+  const [wrongPasswordFeatureEnabled, setWrongPasswordFeatureEnabled] = useState(false);
+  const [wrongPasswordMessage, setWrongPasswordMessage] = useState("❌ Wrong password!");
+
   // Customization states
   const [customization, setCustomization] = useState({
     themeStyle: "dark", // dark, light, cyberpunk, matrix, ocean
@@ -791,6 +795,18 @@ function App() {
     setDecodedMessage("");
     setIsDecoding(true);
 
+    // helper to handle wrong password situation
+    const handleWrongPassword = () => {
+      setIsDecoding(false);
+      if (wrongPasswordFeatureEnabled) {
+        const msg = wrongPasswordMessage || "❌ Wrong password!";
+        setDecodedMessage(msg);
+        showToast(msg);
+      } else {
+        alert("❌ Wrong password!");
+      }
+    };
+
     try {
       if (mode === "image") {
         if (!image) throw new Error();
@@ -844,6 +860,8 @@ function App() {
           }
           
           setIsDecoding(false);
+        }, (err) => {
+          if (err === 'wrong-password') handleWrongPassword();
         });
       } else {
         if (!audio) throw new Error();
@@ -897,6 +915,8 @@ function App() {
           }
           
           setIsDecoding(false);
+        }, (err) => {
+          if (err === 'wrong-password') handleWrongPassword();
         });
       }
     } catch {
@@ -1507,6 +1527,26 @@ function App() {
                 </div>
               </div>
             )}
+            {/* Custom wrong-password message feature */}
+            <div className="wrong-password-settings">
+              <label className="toggle-label">
+                <input
+                  type="checkbox"
+                  checked={wrongPasswordFeatureEnabled}
+                  onChange={(e) => setWrongPasswordFeatureEnabled(e.target.checked)}
+                />
+                <span>Custom wrong-password message</span>
+              </label>
+              {wrongPasswordFeatureEnabled && (
+                <input
+                  type="text"
+                  value={wrongPasswordMessage}
+                  onChange={(e) => setWrongPasswordMessage(e.target.value)}
+                  placeholder="Message shown on wrong password"
+                  className="error-message-input"
+                />
+              )}
+            </div>
           </div>
         </aside>
 
