@@ -100,6 +100,17 @@ function App() {
   // =========================
   // 🔥 SELF-DESTRUCT FEATURE
   // =========================
+
+
+
+
+
+
+
+
+
+
+  
   const [selfDestructEnabled, setSelfDestructEnabled] = useState(false);
   const [selfDestructType, setSelfDestructType] = useState('immediate'); // 'immediate' or 'timer'
   const [selfDestructTimer, setSelfDestructTimer] = useState(30); // seconds
